@@ -1,16 +1,16 @@
 
 # Example graph
-# graph = {
-# 	"A": ["B"],
-# 	"B": ["C", "E"],
-# 	"C": ["F"],
-# 	"D": ["A"],
-# 	"E": ["H", "D"],
-# 	"F": ["I", "E"],
-# 	"G": ["D"],
-# 	"H": ["G"],
-# 	"I": ["H"],
-# }
+graph = {
+	"A": ["B"],
+	"B": ["C", "E"],
+	"C": ["F"],
+	"D": ["A"],
+	"E": ["H", "D"],
+	"F": ["I", "E"],
+	"G": ["D"],
+	"H": ["G"],
+	"I": ["H"],
+}
 
 # graph = {
 # 	"A": ["B", "D"],
@@ -24,17 +24,17 @@
 # 	"I": ["F"],
 # }
 
-graph = {
-	"A": ["B", "D"],
-	"B": ["C"],
-	"C": ["F"],
-	"D": ["E", "G"],
-	"E": ["B", "H"],
-	"F": ["E"],
-	"G": ["H"],
-	"H": ["I"],
-	"I": ["F"],
-}
+# graph = {
+# 	"A": ["B", "D"],
+# 	"B": ["C"],
+# 	"C": ["F"],
+# 	"D": ["E", "G"],
+# 	"E": ["B", "H"],
+# 	"F": ["E"],
+# 	"G": ["H"],
+# 	"H": ["I"],
+# 	"I": ["F"],
+# }
 
 all_cycles = [
 ]
@@ -100,6 +100,22 @@ for starting_node in graph:
 
 	# Add cycles to all cycles list
 	all_cycles += cycles
+
+# Remove repeats
+for c in range(len(all_cycles)):
+	min_val = min(all_cycles[c])
+	min_val_index = all_cycles[c].index(min_val)
+
+	for _ in range(len(all_cycles[c]) - min_val_index):
+		all_cycles[c].insert(0, all_cycles[c].pop())
+
+temp = []
+
+for c in all_cycles:
+	if c not in temp:
+		temp.append(c)
+
+all_cycles = temp
 
 # Print results
 for c in all_cycles:
